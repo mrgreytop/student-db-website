@@ -9,6 +9,6 @@ class errlog{
   public function log($error){
     $logfile = $this->log;
     file_put_contents($logfile, $error."\n", FILE_APPEND);
-  }
+  }//i changed some stuff
 }
 ?>
