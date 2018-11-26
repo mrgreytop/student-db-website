@@ -1,0 +1,43 @@
+* {
+  font-family: verdana;
+}
+.center_screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+body{
+  background: url(grey_background.jpg);
+  background-size: cover;
+}
+#banner {
+	width : 255px;
+	height : 30px;
+  padding: 0 10px 10px 10px;
+  border-radius: 5px;
+}
+#form {
+  display: flex;
+  /* background-color: green; */
+}
+h1, p , a{
+  color: white;
+}
+td {
+  text-align: right;
+  padding: 5px 0 5px 5px
+}
+.left {
+  text-align: left;
+}
+.button{
+  float: right;
+  background-color: purple;
+  border-radius: 5px;
+  color: white;
+}
+.button:hover{
+  cursor: pointer;
+  border-color: black;
+}

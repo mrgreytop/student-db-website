@@ -1,0 +1,105 @@
+* {
+  font-family: verdana; box-sizing: border-box;
+  color: white;
+}
+body {
+  background: url(grey_background.jpg);
+  background-size: cover;
+}
+td {
+  vertical-align: top;
+  white-space: nowrap;
+}
+nav {
+  background-color: #c92424;
+  display: flex;
+}
+nav > a{
+  padding: 5 10 5 10;
+  text-decoration: none;
+  float: left;
+}
+nav > a:hover{
+  background-color: black;
+}
+select, option{
+  color: black;
+  width: 150px;
+  height: 22px;
+}
+#Personal_Details {
+  width: 50%;
+}
+#Student_Details {
+  width: 50%;
+}
+.Container{
+  display: flex;
+  flex-direction: row;
+}
+.button {
+  background-color: purple;
+  border-radius: 5px;
+}
+.button:hover{
+  border-color: black;
+  cursor: pointer;
+}
+.collapsible {
+  background-color: purple;
+  cursor: pointer;
+  width: 80%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  overflow: hidden;
+  padding: 10px;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.content {
+  background-color: black;
+  width: 80%;
+  padding: 5px;
+  display: none;
+  text-align: left;
+  font-size: 12px;
+}
+.box {
+  margin: 10px;
+}
+.inner_element {
+  margin: 0 10 0 10;
+}
+.fixed_header{
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody{
+display:block;
+width: 100%;
+overflow: auto;
+max-height: 400px;
+}
+
+.fixed_header thead tr {
+ display: block;
+}
+.fixed_header thead tr:nth-child(even) {
+ background-color: lightgrey;
+ opacity: 10%;
+}
+.fixed_header thead {
+background: #c92424;
+}
+
+.fixed_header th, .fixed_header td {
+padding: 5px;
+text-align: left;
+}

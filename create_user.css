@@ -1,0 +1,25 @@
+* {
+  font-family: verdana; box-sizing: border-box;
+  color: white;
+}
+body {
+  background: url(grey_background.jpg);
+  background-size: cover;
+}
+.input {
+  color: black;
+}
+.button {
+  background-color: purple;
+  border-radius: 5px;
+}
+.button:hover{
+  border-color: black;
+  cursor: pointer;
+}
+table.spaced_form tr > td{
+  padding: 10 0 10 5;
+  text-align: right;
+  vertical-align: top;
+  white-space: nowrap;
+}
