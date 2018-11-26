@@ -36,15 +36,20 @@ $err->log($getModules);
   <h2>My Modules</h2>
     <?php
     if ($modules = $conn->query($getModules)){
-      while($row = $modules->fetch_assoc()){
-          echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
-          echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
-          echo "<p>This module is worth: ".$row["credits"]." credits</p></div></div>";
-      }
+      if($modules->num_rows()>0){
+        while($row = $modules->fetch_assoc()){
+            echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
+            echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
+            echo "<p>This module is worth: ".$row["credits"]." credits</p></div></div>";
+          }
+        }else{
+          echo "<h3>You have not enrolled onto any modules yet!";
+        }
     }else{
       $err->log("query fail");
     }
     ?>
+  <button class= "button" value = "enroll onto modules"onclick="window.location.href='Enrollment.php'"></button>
 </body>
 <script>
 var coll = document.getElementsByClassName("collapsible");
