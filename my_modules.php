@@ -6,7 +6,6 @@
 include('sqlQueries.php');
 $studentID = $_SESSION["studentID"];
 $getModules = "select module, lecturer, credits from modules, enrolment, students where enrolment.studentID = ".$studentID." and modules.moduleID = enrolment.moduleID";
-$err->log($getModules);
 ?>
 <link rel="stylesheet" type="text/css" href="general.css"></link>
 <title>My Student Management System</title>
@@ -18,7 +17,7 @@ $err->log($getModules);
       <table>
         <tr style = "height: 36px;">
           <td>Hello</td>
-          <td><?php echo $username."!";?></td>
+          <td><?php echo $_SESSION["username"]."!";?></td>
         </tr>
         <tr style = "height: 12px;">
           <td></td>
@@ -31,20 +30,27 @@ $err->log($getModules);
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
     <a><div>My Assessments</div></a>
-    <a><div>Module Enrollment</div></a>
+    <a href = "Enrollment.php"><div>Module Enrollment</div></a>
   </nav>
   <h2>My Modules</h2>
     <?php
     if ($modules = $conn->query($getModules)){
-      while($row = $modules->fetch_assoc()){
-          echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
-          echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
-          echo "<p>This module is worth: ".$row["credits"]." credits</p></div></div>";
-      }
+      if($modules->num_rows>0){
+        $err->log("has some rows");
+        while($row = $modules->fetch_assoc()){
+            echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
+            echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
+            echo "<p>This module is worth: ".$row["credits"]." credits</p></div></div>";
+          }
+        }else{
+          $err->log("no modules");
+          echo "<h3>You have not enrolled onto any modules yet!</h3>";
+        }
     }else{
       $err->log("query fail");
     }
     ?>
+  <button class= "button" onclick="window.location.href='Enrollment.php'">Add Modules</button>
 </body>
 <script>
 var coll = document.getElementsByClassName("collapsible");

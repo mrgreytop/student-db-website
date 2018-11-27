@@ -6,8 +6,16 @@
 include('sqlQueries.php');
 $studentID = $_SESSION["studentID"];
 $username = $_SESSION["username"];
-$getAddr = "select address1, address2, postcode from students where studentID = '".$studentID."'";
-$getCourse = "select course from courses inner join students on students.courseID = courses.courseID where studentID = ".$studentID.""?>
+$getDetails = "select address1, address2, postcode, courseID from students where studentID = '".$studentID."'";
+
+if ($queryDetails = $conn->query($getDetails)){
+  while($Details = $queryDetails->fetch_row()){
+    $_SESSION["courseID"] = $Details[3];
+  }
+}
+
+$getCourse = "select course from courses inner join students on students.courseID = courses.courseID where studentID = ".$studentID.""
+?>
 <link rel="stylesheet" type="text/css" href="general.css">
 <title>My Student Management System</title>
 </head>
@@ -18,7 +26,7 @@ $getCourse = "select course from courses inner join students on students.courseI
       <table>
         <tr style = "height: 36px;">
           <td>Hello</td>
-          <td><?php echo $username."!";?></td>
+          <td><?php echo $_SESSION["username"]."!";?></td>
         </tr>
         <tr style = "height: 12px;">
           <td></td>
@@ -31,7 +39,7 @@ $getCourse = "select course from courses inner join students on students.courseI
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
     <a><div>My Assessments</div></a>
-    <a><div>Module Enrollment</div></a>
+    <a href = "Enrollment.php"><div>Module Enrollment</div></a>
   </nav>
   <div class = 'Container'>
     <div id="Personal_Details">
@@ -41,9 +49,9 @@ $getCourse = "select course from courses inner join students on students.courseI
           <td>Address:</td>
           <td>
             <?php
-            if ($address = $conn->query($getAddr)){
-              while($row = $address->fetch_row()){
-                echo $row[0]."<br>".$row[1]."<br>".$row[2];
+            if ($queryDetails = $conn->query($getDetails)){
+              while($Details = $queryDetails->fetch_row()){
+                echo $Details[0]."<br>".$Details[1]."<br>".$Details[2];
               }
             }?>
           </td>
@@ -66,7 +74,6 @@ $getCourse = "select course from courses inner join students on students.courseI
           <td><?php
           if ($course = $conn->query($getCourse)){
             while($row = $course->fetch_assoc()){
-              $_SESSION["courseID"] = $row["courseID"];
               echo $row["course"];
             }
           }
