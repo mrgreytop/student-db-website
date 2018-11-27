@@ -8,6 +8,7 @@
   $stmt = "select module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   $credits = "select distinct credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+  $err->log($_SESSION["courseID"]);
   ?>
 </head>
 <body>
@@ -17,7 +18,7 @@
       <table>
         <tr style = "height: 36px;">
           <td>Hello</td>
-          <td><?php echo $username."!";?></td>
+          <td><?php echo $_SESSION["username"]."!";?></td>
         </tr>
         <tr style = "height: 12px;">
           <td></td>
@@ -30,7 +31,7 @@
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
     <a><div>My Assessments</div></a>
-    <a><div>Module Enrollment</div></a>
+    <a href = "Enrollment.php"><div>Module Enrollment</div></a>
   </nav>
   <form>
     <div class = "Container">

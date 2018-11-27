@@ -34,8 +34,10 @@ $getModules = "select module, lecturer, credits from modules, enrolment, student
   </nav>
   <h2>My Modules</h2>
     <?php
+    $err->log("error log working line37");
     if ($modules = $conn->query($getModules)){
-      if($modules->num_rows()>0){
+      if($modules->num_rows>0){
+        $err->log("has some rows");
         while($row = $modules->fetch_assoc()){
             echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
             echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
@@ -48,8 +50,9 @@ $getModules = "select module, lecturer, credits from modules, enrolment, student
     }else{
       $err->log("query fail");
     }
+    $err->log("error log working line52");
     ?>
-  <button class= "button" value = "enroll onto modules"onclick="window.location.href='Enrollment.php'"></button>
+  <button class= "button" onclick="window.location.href='Enrollment.php'">Add Modules</button>
 </body>
 <script>
 var coll = document.getElementsByClassName("collapsible");
