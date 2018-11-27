@@ -6,7 +6,14 @@
 include('sqlQueries.php');
 $studentID = $_SESSION["studentID"];
 $username = $_SESSION["username"];
-$getAddr = "select address1, address2, postcode from students where studentID = '".$studentID."'";
+$getDetails = "select address1, address2, postcode, courseID from students where studentID = '".$studentID."'";
+
+if ($queryDetails = $conn->query($getDetails)){
+  while($Details = $queryDetails->fetch_row()){
+    $_SESSION["courseID"] = $Details[3];
+  }
+}
+
 $getCourse = "select course from courses inner join students on students.courseID = courses.courseID where studentID = ".$studentID.""
 ?>
 <link rel="stylesheet" type="text/css" href="general.css">
@@ -42,9 +49,9 @@ $getCourse = "select course from courses inner join students on students.courseI
           <td>Address:</td>
           <td>
             <?php
-            if ($address = $conn->query($getAddr)){
-              while($row = $address->fetch_row()){
-                echo $row[0]."<br>".$row[1]."<br>".$row[2];
+            if ($queryDetails = $conn->query($getDetails)){
+              while($Details = $queryDetails->fetch_row()){
+                echo $Details[0]."<br>".$Details[1]."<br>".$Details[2];
               }
             }?>
           </td>
@@ -67,9 +74,7 @@ $getCourse = "select course from courses inner join students on students.courseI
           <td><?php
           if ($course = $conn->query($getCourse)){
             while($row = $course->fetch_assoc()){
-              $_SESSION["courseID"] = $row["courseID"];
               echo $row["course"];
-              $err->log($_SESSION["courseID"]);
             }
           }
           ?></td>
