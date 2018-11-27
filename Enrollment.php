@@ -34,15 +34,13 @@
     <a href = "Enrollment.php"><div>Module Enrollment</div></a>
   </nav>
   <form>
+    <h4>Filters</h4>
     <div class = "Container">
-      <div class = "inner_element">
-        <h4>Filters</h4>
-      </div>
-      <div class = "inner_element">
+      <div class = "innerElement">
         <p>keyword</p>
         <input type= "text" name ="keyword"></input>
       </div>
-      <div class = "inner_element">
+      <div class = "innerElement">
         <p>lecturer</p>
         <select name ="lecturer">
           <option value = "none"></option>
@@ -58,7 +56,7 @@
           ?>
         </select>
       </div>
-      <div class = "inner_element">
+      <div class = "innerElement">
         <p>credits</p>
         <select name ="credits">
           <option value = "none"></option>
@@ -78,13 +76,14 @@
     </div>
   </form>
   <div class = "Container">
-    <div class = "inner_element" style="width:100%;">
+    <div class = "innerElement" style="width:100%;">
+      <h3>Available modules</h3>
       <form>
         <table class = "fixed_header">
           <thead>
             <tr>
-              <th><input type="checkbox" name="all" onclick=toggle(this)></input></th>
-              <th style="width:200px; text-align: center;">Title</th>
+              <th style="width:30px;"><input type="checkbox" name="all" onclick=toggle(this)></input></th>
+              <th>Title</th>
               <th>Lecturer</th>
               <th>Credits</th>
             </tr>
@@ -111,18 +110,18 @@
         <input type="submit" class="button" value="Enroll" name="enroll" style="margin: 10px;"></input>
       </form>
     </div>
-    <!-- <div class = "inner_element" style="width:50%;">
+    <!-- <div class = "innerElement" style="width:50%;">
       <h2>Description</h2>
       <p>aslfdkjasdlk fjaslfkjasldfk jsadlfkjasd flskafjlasfja slfkjasldfka sjdfl ;kasjfdl sadlfkjasldkfj  l;kasdjfl;a asdl;fkjaksl ;lkasdjf l laskdjf laksjfd lkasdjf lkasdf alk jslkadf aslkf jlaskdjf lkasj fdl</p>
     </div> -->
   </div>
 </body>
 <script>
-function toggle(source) {
-  checkboxes = document.getElementsByClassName('sub_checkbox');
-  for(var i=0, n=checkboxes.length;i<n;i++) {
-    checkboxes[i].checked = source.checked;
+  function toggle(source) {
+    checkboxes = document.getElementsByClassName('sub_checkbox');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
   }
-}
 </script>
 </html>
