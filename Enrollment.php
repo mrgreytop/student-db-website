@@ -48,7 +48,7 @@
           <option value = "none"></option>
           <?php
           $result = $conn->query($lecturers);
-          if ($result->num_rows()>0){
+          if ($result->num_rows>0){
             while ($row = $result->fetch_row()){
               echo "<option value ='".$row[0]."'>'".$row[0]."'</option>";
             }
@@ -64,9 +64,9 @@
           <option value = "none"></option>
           <?php
           $result = $conn->query($credits);
-          if ($result->num_rows()>0){
+          if ($result->num_rows>0){
             while ($row = $result->fetch_row()){
-              echo "<option value ='".$row[0]."'>'".$row[0]."'</option>";
+              echo "<option value =".$row[0].">".$row[0]."</option>";
             }
           }else{
             $err->log("credits empty");
@@ -78,7 +78,7 @@
     </div>
   </form>
   <div class = "Container">
-    <div class = "inner_element" style="width:50%;">
+    <div class = "inner_element" style="width:100%;">
       <form>
         <table class = "fixed_header">
           <thead>
@@ -90,9 +90,9 @@
             </tr>
           </thead>
           <tbody>
-            <?php//echos result of query into table
+            <?php
             $result = $conn->query($stmt);
-            if ($result->num_rows()>0){
+            if ($result->num_rows>0){
               $i = 0;
               while ($row = $result->fetch_assoc()){
                 echo "<tr><td><input type = 'checkbox' name = row".$i." class = 'sub_checkbox'></td>";
@@ -111,10 +111,10 @@
         <input type="submit" class="button" value="Enroll" name="enroll" style="margin: 10px;"></input>
       </form>
     </div>
-    <div class = "inner_element" style="width:50%;">
+    <!-- <div class = "inner_element" style="width:50%;">
       <h2>Description</h2>
       <p>aslfdkjasdlk fjaslfkjasldfk jsadlfkjasd flskafjlasfja slfkjasldfka sjdfl ;kasjfdl sadlfkjasldkfj  l;kasdjfl;a asdl;fkjaksl ;lkasdjf l laskdjf laksjfd lkasdjf lkasdf alk jslkadf aslkf jlaskdjf lkasj fdl</p>
-    </div>
+    </div> -->
   </div>
 </body>
 <script>

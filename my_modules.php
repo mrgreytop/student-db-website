@@ -34,7 +34,6 @@ $getModules = "select module, lecturer, credits from modules, enrolment, student
   </nav>
   <h2>My Modules</h2>
     <?php
-    $err->log("error log working line37");
     if ($modules = $conn->query($getModules)){
       if($modules->num_rows>0){
         $err->log("has some rows");
@@ -50,7 +49,6 @@ $getModules = "select module, lecturer, credits from modules, enrolment, student
     }else{
       $err->log("query fail");
     }
-    $err->log("error log working line52");
     ?>
   <button class= "button" onclick="window.location.href='Enrollment.php'">Add Modules</button>
 </body>
