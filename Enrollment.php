@@ -5,10 +5,21 @@
   <link rel="stylesheet" type="text/css" href="general.css"></link>
   <?php
   include "sqlQueries.php";
-  $stmt = "select module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+  $modules = "select modules.moduleID, module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   $credits = "select distinct credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
-  $err->log($_SESSION["courseID"]);
+  if (!empty($_POST["enrol"])){
+    $err->log("enrol subimt -------");
+    foreach($_POST["row"] as $moduleID){
+      $enrol = "insert into enrolment (moduleID, studentID) values (".$moduleID.",".$_SESSION["studentID"].")";
+      if($insert = $conn->query($enrol)){
+        $err->log($_SESSION["username"]." has enrolled onto ".$moduleID);
+        $enrolled = true;
+      }else{
+        $err->log("insert error: ".mysqli_error($conn));
+      }
+    }
+  }
   ?>
 </head>
 <body>
@@ -31,7 +42,7 @@
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
     <a><div>My Assessments</div></a>
-    <a href = "Enrollment.php"><div>Module Enrollment</div></a>
+    <a href = "enrolment.php"><div>Module enrolment</div></a>
   </nav>
   <form>
     <h4>Filters</h4>
@@ -78,7 +89,7 @@
   <div class = "Container">
     <div class = "innerElement" style="width:100%;">
       <h3>Available modules</h3>
-      <form>
+      <form  method = "POST" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
         <table class = "fixed_header">
           <thead>
             <tr>
@@ -90,13 +101,18 @@
           </thead>
           <tbody>
             <?php
-            $result = $conn->query($stmt);
+            $result = $conn->query($modules);
             if ($result->num_rows>0){
               $i = 0;
               while ($row = $result->fetch_assoc()){
-                echo "<tr><td><input type = 'checkbox' name = row".$i." class = 'sub_checkbox'></td>";
+                echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
+                $first = true;
                 foreach($row as $data){
-                  echo "<td>".$data."</td>";
+                  if(!$first){
+                    echo "<td>".$data."</td>";
+                  }else{
+                    $first = false;
+                  }
                 }
                 echo "</tr>";
                 $i = $i + 1;
@@ -107,13 +123,10 @@
             ?>
           </tbody>
         </table>
-        <input type="submit" class="button" value="Enroll" name="enroll" style="margin: 10px;"></input>
+        <input type="submit" class="button" value="Enrol" name="enrol" style="margin: 10px;"></input>
       </form>
+      <p><?php if ($enrolled) {echo "Enrolment succesful!";}?></p>
     </div>
-    <!-- <div class = "innerElement" style="width:50%;">
-      <h2>Description</h2>
-      <p>aslfdkjasdlk fjaslfkjasldfk jsadlfkjasd flskafjlasfja slfkjasldfka sjdfl ;kasjfdl sadlfkjasldkfj  l;kasdjfl;a asdl;fkjaksl ;lkasdjf l laskdjf laksjfd lkasdjf lkasdf alk jslkadf aslkf jlaskdjf lkasj fdl</p>
-    </div> -->
   </div>
 </body>
 <script>
