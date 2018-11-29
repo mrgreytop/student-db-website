@@ -4,26 +4,26 @@
 <head>
   <link rel="stylesheet" type="text/css" href="general.css"></link>
   <?php
-  include "sqlQueries.php";
-  $modules = "select modules.moduleID, module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
-  $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
-  $credits = "select distinct credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
-  if (!empty($_POST["enrol"])){
-    $err->log("enrol subimt -------");
-    foreach($_POST["row"] as $moduleID){
-      $enrol = "insert into enrolment (moduleID, studentID) values (".$moduleID.",".$_SESSION["studentID"].")";
-      if($insert = $conn->query($enrol)){
-        $err->log($_SESSION["username"]." has enrolled onto ".$moduleID);
-        $enrolled = true;
-      }else{
-        $err->log("insert error: ".mysqli_error($conn));
+    include "sqlQueries.php";
+    $modules = "select modules.moduleID, module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+    $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+    $credits = "select distinct credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+    if (!empty($_POST["enrol"])){
+      $err->log("enrol subimt -------");
+      foreach($_POST["row"] as $moduleID){
+        $enrol = "insert into enrolment (moduleID, studentID) values (".$moduleID.",".$_SESSION["studentID"].")";
+        if($insert = $conn->query($enrol)){
+          $err->log($_SESSION["username"]." has enrolled onto ".$moduleID);
+          $enrolled = true;
+        }else{
+          $err->log("insert error: ".mysqli_error($conn));
+        }
       }
     }
-  }
-  if(!empty($_POST["apply_filter"])){
-    $modules .=" and module like '%".$_POST["keyword"]."%'";
-    $err->log($modules);
-  }
+    if(!empty($_POST["apply_filter"])){
+      $modules .=" and module like '%".$_POST["keyword"]."%'";
+      $err->log($modules);
+    }
   ?>
 </head>
 <body>
@@ -48,6 +48,7 @@
     <a><div>My Assessments</div></a>
     <a href = "enrolment.php"><div>Module enrolment</div></a>
   </nav>
+  <h2>Module Enrolment</h2>
   <form method ="post" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
     <h4>Filters</h4>
     <div class = "Container">
