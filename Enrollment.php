@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="general.css"></link>
   <?php
   include "sqlQueries.php";
-  $modules = "select modules.moduleID, module, lecturer, credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
+  $modules = "select modules.moduleID, module, lecturer, credits from modules inner join plans on plans.moduleID = modules.moduleID inner join courses on courses.courseID = plans.courseID where courses.courseID = ".$_SESSION["courseID"];
   $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   $credits = "select distinct credits from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
   if (!empty($_POST["enrol"])){
@@ -48,6 +48,7 @@
     <a><div>My Assessments</div></a>
     <a href = "enrolment.php"><div>Module enrolment</div></a>
   </nav>
+  <h2>Module Enrolment</h2>
   <form method ="post" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
     <h4>Filters</h4>
     <div class = "Container">
