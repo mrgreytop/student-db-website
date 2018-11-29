@@ -5,7 +5,7 @@
 <?php
 include('sqlQueries.php');
 $studentID = $_SESSION["studentID"];
-$getModules = "select module, lecturer, credits from modules, enrolment, students where enrolment.studentID = ".$studentID." and modules.moduleID = enrolment.moduleID";
+$getModules = " select module from modules inner join enrolment on modules.moduleID = enrolment.moduleID inner join students on  enrolment.studentID = students.studentID where students.studentID =".$studentID;
 ?>
 <link rel="stylesheet" type="text/css" href="general.css"></link>
 <title>My Student Management System</title>
