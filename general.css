@@ -15,7 +15,7 @@ nav {
   display: flex;
 }
 nav > a{
-  padding: 5 10 5 10;
+  padding: 5px;
   text-decoration: none;
   float: left;
 }
@@ -72,7 +72,7 @@ select, option{
 .box {
   margin: 10px;
 }
-.inner_element {
+.innerElement {
   margin: 0 10 0 10;
 }
 .fixed_header{
@@ -82,18 +82,9 @@ select, option{
 }
 
 .fixed_header tbody{
-display:block;
-width: 100%;
-overflow: auto;
-max-height: 400px;
-}
-
-.fixed_header thead tr {
- display: block;
-}
-.fixed_header thead tr:nth-child(even) {
- background-color: lightgrey;
- opacity: 10%;
+  width: 100%;
+  overflow: auto;
+  max-height: 400px;
 }
 .fixed_header thead {
 background: #c92424;

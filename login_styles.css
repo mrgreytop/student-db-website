@@ -19,7 +19,6 @@ body{
 }
 #form {
   display: flex;
-  /* background-color: green; */
 }
 h1, p , a{
   color: white;
