@@ -20,6 +20,10 @@
       }
     }
   }
+  if(!empty($_POST["apply_filter"])){
+    $modules .=" and module like '%".$_POST["keyword"]."%'";
+    $err->log($modules);
+  }
   ?>
 </head>
 <body>
@@ -44,25 +48,25 @@
     <a><div>My Assessments</div></a>
     <a href = "enrolment.php"><div>Module enrolment</div></a>
   </nav>
-  <form>
+  <form method ="post" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
     <h4>Filters</h4>
     <div class = "Container">
       <div class = "innerElement">
         <p>keyword</p>
-        <input type= "text" name ="keyword"></input>
+        <input type= "text" name ="keyword" style ="color:black;"></input>
       </div>
       <div class = "innerElement">
         <p>lecturer</p>
         <select name ="lecturer">
-          <option value = "none"></option>
+          <option value = 'any'>any</option>
           <?php
           $result = $conn->query($lecturers);
           if ($result->num_rows>0){
             while ($row = $result->fetch_row()){
-              echo "<option value ='".$row[0]."'>'".$row[0]."'</option>";
+              echo "<option value ='".$row[0]."'>".$row[0]."</option>";
             }
           }else{
-            $err->log("lecturers empty");
+            $err->log("lecturers empty: ".mysqli_error($conn));
           }
           ?>
         </select>
@@ -70,7 +74,7 @@
       <div class = "innerElement">
         <p>credits</p>
         <select name ="credits">
-          <option value = "none"></option>
+          <option value = "any">any</option>
           <?php
           $result = $conn->query($credits);
           if ($result->num_rows>0){
@@ -78,7 +82,7 @@
               echo "<option value =".$row[0].">".$row[0]."</option>";
             }
           }else{
-            $err->log("credits empty");
+            $err->log("credits empty: ".mysqli_error($conn));
           }
           ?>
         </select>
@@ -105,20 +109,38 @@
             if ($result->num_rows>0){
               $i = 0;
               while ($row = $result->fetch_assoc()){
-                echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
-                $first = true;
-                foreach($row as $data){
-                  if(!$first){
-                    echo "<td>".$data."</td>";
-                  }else{
-                    $first = false;
+                if (!empty($_POST["apply_filter"])){
+                  if($row["lecturer"] == $_POST["lecturer"] or $_POST["lecturer"] == 'any'){
+                    if($row["credits"] == $_POST["credits"] or $_POST["credits"] == 'any'){
+                      echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
+                      $first = true;
+                      foreach($row as $data){
+                        if(!$first){
+                          echo "<td>".$data."</td>";
+                        }else{
+                          $first = false;
+                        }
+                      }
+                      echo "</tr>";
+                      $i = $i + 1;
+                    }
                   }
+                }else{
+                  echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
+                  $first = true;
+                  foreach($row as $data){
+                    if(!$first){
+                      echo "<td>".$data."</td>";
+                    }else{
+                      $first = false;
+                    }
+                  }
+                  echo "</tr>";
+                  $i = $i + 1;
                 }
-                echo "</tr>";
-                $i = $i + 1;
               }
             }else{
-              $err->log("result empty");
+              $err->log("result empty".mysqli_error($conn));
             }
             ?>
           </tbody>
