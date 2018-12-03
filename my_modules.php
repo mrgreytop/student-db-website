@@ -5,8 +5,8 @@
 <?php
 include('sqlQueries.php');
 $studentID = $_SESSION["studentID"];
-$getModules = "select module, lecturer, credits from modules, enrolment, students where enrolment.studentID = ".$studentID." and modules.moduleID = enrolment.moduleID";
-$err->log($getModules);
+$fetch_modulelist = "select module, lecturer, credits from modules inner join enrolment on modules.moduleID = enrolment.moduleID inner join students on students.studentID = enrolment.studentID where students.studentID = ".$_SESSION["studentID"];
+$err->log($fetch_modulelist);
 ?>
 <link rel="stylesheet" type="text/css" href="general.css"></link>
 <title>My Student Management System</title>
@@ -36,16 +36,17 @@ $err->log($getModules);
   <h2>My Modules</h2>
     <?php
       //modules table
-      if ($modules = $conn->query($getModules)){
+      if ($modules = $conn->query($fetch_modulelist)){
         while($row = $modules->fetch_assoc()){
             echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
             echo "<div class = content><p>The lecturer for this module is: ".$row["lecturer"]."</p>";
             echo "<p>This module is worth: ".$row["credits"]." credits</p></div></div>";
         }
       }else{
-        $err->log("query fail");
+        $err->log("query fail".mysqli_error($conn));
       }
     ?>
+    <button class = "button" onclick="window.location.href = 'Enrollment.php'">Add Modules</button>
 </body>
 <script>
   var coll = document.getElementsByClassName("collapsible");
