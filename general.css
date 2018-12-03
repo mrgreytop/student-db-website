@@ -94,3 +94,17 @@ background: #c92424;
 padding: 5px;
 text-align: left;
 }
+#assessment_table{
+  width: 100%;
+  overflow-x: scroll;
+}
+#assessment_table thead {
+  background: #c92424;
+}
+#assessment_table table {
+  border-collapse: collapse;
+}
+#assessment_table th, #assessment_table td {
+  padding: 5px;
+  text-align: left;
+}

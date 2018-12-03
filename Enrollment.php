@@ -17,7 +17,7 @@
       <table>
         <tr style = "height: 36px;">
           <td>Hello</td>
-          <td><?php echo $username."!";?></td>
+          <td><?php echo $_SESSION["username"]."!";?></td>
         </tr>
         <tr style = "height: 12px;">
           <td></td>
@@ -29,8 +29,8 @@
   <nav>
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
-    <a><div>My Assessments</div></a>
-    <a><div>Module Enrollment</div></a>
+    <a href = "Assessments.php"><div>My Assessments</div></a>
+    <a href = "Enrollment.php"><div>Module Enrollment</div></a>
   </nav>
   <form>
     <div class = "Container">
