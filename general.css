@@ -78,6 +78,7 @@ select, option{
 .fixed_header{
   width: 100%;
   table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .fixed_header tbody{
@@ -94,7 +95,7 @@ padding: 5px;
 text-align: left;
 }
 #assessment_table{
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 #assessment_table thead {
   background: #c92424;

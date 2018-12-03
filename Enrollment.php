@@ -51,8 +51,8 @@
   <nav>
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
-    <a><div>My Assessments</div></a>
-    <a href = "enrolment.php"><div>Module enrolment</div></a>
+    <a href = "Assessments.php"><div>My Assessments</div></a>
+    <a href = "Enrolment.php"><div>Module Enrolment</div></a>
   </nav>
   <h2>Module Enrolment</h2>
   <form method ="post" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
@@ -113,43 +113,43 @@
           </thead>
           <tbody>
             <?php
-            $result = $conn->query($modules);
-            if ($result->num_rows>0){
-              $i = 0;
-              while ($row = $result->fetch_assoc()){
-                if (!empty($_POST["apply_filter"])){
-                  if($row["lecturer"] == $_POST["lecturer"] or $_POST["lecturer"] == 'any'){
-                    if($row["credits"] == $_POST["credits"] or $_POST["credits"] == 'any'){
-                      echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
-                      $first = true;
-                      foreach($row as $data){
-                        if(!$first){
-                          echo "<td>".$data."</td>";
-                        }else{
-                          $first = false;
+              $result = $conn->query($modules);
+              if ($result->num_rows>0){
+                $i = 0;
+                while ($row = $result->fetch_assoc()){
+                  if (!empty($_POST["apply_filter"])){
+                    if($row["lecturer"] == $_POST["lecturer"] or $_POST["lecturer"] == 'any'){
+                      if($row["credits"] == $_POST["credits"] or $_POST["credits"] == 'any'){
+                        echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
+                        $first = true;
+                        foreach($row as $data){
+                          if(!$first){
+                            echo "<td>".$data."</td>";
+                          }else{
+                            $first = false;
+                          }
                         }
+                        echo "</tr>";
+                        $i = $i + 1;
                       }
-                      echo "</tr>";
-                      $i = $i + 1;
                     }
-                  }
-                }else{
-                  echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
-                  $first = true;
-                  foreach($row as $data){
-                    if(!$first){
-                      echo "<td>".$data."</td>";
-                    }else{
-                      $first = false;
+                  }else{
+                    echo "<tr><td><input type = 'checkbox' name = 'row[".$i."]' value = '".$row["moduleID"]."' class = 'sub_checkbox'></td>";
+                    $first = true;
+                    foreach($row as $data){
+                      if(!$first){
+                        echo "<td>".$data."</td>";
+                      }else{
+                        $first = false;
+                      }
                     }
+                    echo "</tr>";
+                    $i = $i + 1;
                   }
-                  echo "</tr>";
-                  $i = $i + 1;
                 }
+              }else{
+                $err->log("result empty".mysqli_error($conn));
               }
-            }else{
-              $err->log("result empty".mysqli_error($conn));
-            }
             ?>
           </tbody>
         </table>
