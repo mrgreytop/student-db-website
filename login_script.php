@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("error_log.php");
 if(session_start()){
   $err = new errlog("error_log.txt");
@@ -34,7 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $err->log( "FETCHED ".$row["studentID"]." ".$row["username"]."");
         $_SESSION["studentID"] = $row["studentID"];
         $_SESSION["username"] = $row["username"];
-        echo "<script>window.location.href= 'home_screen.php';</script>";
+        $findcourseID = "select courseID from students where studentID = ".$_SESSION["studentID"];
+        if($getcourseID = $conn->query($findcourseID)){
+          $courseID = $getcourseID->fetch_row();
+          $_SESSION["courseID"] = $courseID[0];
+          $err->log("courseID: ".$_SESSION["courseID"]);
+          echo "<script>window.location.href= 'home_screen.php';</script>";
+        }else{
+          $err->log(mysqli_error($conn));
+        }
       }
     }
   }

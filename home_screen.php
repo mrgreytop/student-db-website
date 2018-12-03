@@ -1,5 +1,4 @@
 <?php session_start();?>
-<!DOCTYPE html>
 <html>
 <head>
 <?php
@@ -65,7 +64,6 @@ $getCourse = "select course from courses inner join students on students.courseI
           <td><?php
           if ($course = $conn->query($getCourse)){
             while($row = $course->fetch_assoc()){
-              $_SESSION["courseID"] = $row["courseID"];
               echo $row["course"];
             }
           }
