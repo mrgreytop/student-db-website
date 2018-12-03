@@ -35,6 +35,7 @@ $err->log($getModules);
   </nav>
   <h2>My Modules</h2>
     <?php
+      //modules table
       if ($modules = $conn->query($getModules)){
         while($row = $modules->fetch_assoc()){
             echo "<div class = box><div class = collapsible><div class = 'left'>".$row["module"]."</div><div class = 'right'>+</div></div>";
