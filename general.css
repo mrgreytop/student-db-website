@@ -38,6 +38,7 @@ select, option{
   flex-direction: row;
 }
 .button {
+  color: white;
   background-color: purple;
   border-radius: 5px;
 }
@@ -106,4 +107,10 @@ text-align: left;
 #assessment_table th, #assessment_table td {
   padding: 5px;
   text-align: left;
+}
+.hidden_form{
+  display: none;
+}
+input:not(.button){
+  color: black;
 }

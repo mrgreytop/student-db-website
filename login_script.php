@@ -18,6 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $err->log("conn fail");
   }
   $uname = $_POST["username"];
+  $err->log($uname);
+  $uname = filter_var(trim($uname),FILTER_SANITIZE_STRING);
+  $err->log($uname);
   $password = hash(sha256, $_POST["password"], FALSE);
   if (!$uname and !$password){
     $err->log("post fail");

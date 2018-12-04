@@ -55,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
       }else{$err->log(mysqli_error($conn));}
       //insert login details
       $password = hash(sha256, $_POST["password"], FALSE);
-      $insert_login = "insert into login (username, password, studentID) values ('".$_POST["username"]."','".$password."',".$studentID.")";
+      $uname = filter_var(trim($_POST["username"]), FILTER_SANITIZE_STRING);
+      $insert_login = "insert into login (username, password, studentID) values ('".$uname."','".$password."',".$studentID.")";
       if($login= $conn->query($insert_login)){
         $err->log("login inserted");
         echo "<script>window.location.href= 'Student_login.php';</script>";
