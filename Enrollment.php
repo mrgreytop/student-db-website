@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="general.css"></link>
   <?php
   include "sqlQueries.php";
+
   if ($_SESSION["courseID"]){
     $modules = "select modules.moduleID, module, lecturer, credits from modules inner join plans on plans.moduleID = modules.moduleID inner join courses on courses.courseID = plans.courseID where courses.courseID = ".$_SESSION["courseID"];
     $lecturers = "select distinct lecturer from modules, plans, courses where plans.moduleID=modules.moduleID and plans.courseID = ".$_SESSION["courseID"];
@@ -13,7 +14,6 @@
     $err->log("courseID session variable empty");
     $err->log("courseID: ".$_SESSION["courseID"]);
   }
-
   if (!empty($_POST["enrol"])){
     $err->log("enrol subimt -------");
     foreach($_POST["row"] as $moduleID){
@@ -51,8 +51,10 @@
   <nav>
     <a href= "home_screen.php"><div>My Details</div></a>
     <a href = "my_modules.php"><div>My Modules</div></a>
+
     <a href = "Assessments.php"><div>My Assessments</div></a>
     <a href = "Enrolment.php"><div>Module Enrolment</div></a>
+
   </nav>
   <h2>Module Enrolment</h2>
   <form method ="post" action = '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
