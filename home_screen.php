@@ -33,28 +33,32 @@
         $message = "incorrect password";
       }
     }
+    if(!empty($_POST["change_password"])){
+      $old_pass = hash(sha256, $_POST["old_password"], FALSE);
+      $new_pass = hash(sha256, $_POST["new_password"], FALSE);
+      $confirm_pass = hash(sha256, $_POST["confirm_password"], FALSE);
+      $finduser = "select * from login where studentID = '".$_SESSION["studentID"]."' and password = '".$old_pass."'";
+      if($result = $conn->query($finduser)){
+        if($new_pass == $confirm_pass){
+          $update_password_stmt = "update login set password = '".$new_pass."' where studentID = ".$_SESSION["studentID"];
+          if($update_password = $conn->query($update_password_stmt)){
+            $err->log("password updated");
+          }else{
+            $err->log("passwords don't match");
+          }
+        }
+      }else{
+        $err->log("wrong password");
+      }
+
+    }
     $close = $_POST["close_form"];
-    $err->log($close);
-    $err->log(count($close));
     for($i=0;$i<count($close);$i++){
       if(!empty($close[$i])){
         $_POST = array();
         echo "<script>closeForm(".$i.")</script>";
       }
     }
-    // if(!empty($_POST["close_form0"])){
-    //     $_POST = array();
-    //     echo "<script>closeForm(0)</script>";
-    // }
-    // if(!empty($_POST["close_form1"])){
-    //     $_POST = array();
-    //     echo "<script>closeForm(1)</script>";
-    // }
-    // if(!empty($_POST["close_form2"])){
-    //     $_POST = array();
-    //     echo "<script>closeForm(2)</script>";
-    // }
-    //change password
   }else{
     $err->log("post thing broke");
   }
