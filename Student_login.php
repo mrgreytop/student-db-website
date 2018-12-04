@@ -28,7 +28,7 @@
     </form>
     </div>
     <div>
-      <button class = button onclick="window.location.href = create_user.php">Create Login</button>
+      <button class = button onclick="location.href = 'create_user.php';">Create Login</button>
     </div>
   </div>
 </body>

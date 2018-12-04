@@ -15,7 +15,7 @@ nav {
   display: flex;
 }
 nav > a{
-  padding: 5 10 5 10;
+  padding: 5px;
   text-decoration: none;
   float: left;
 }
@@ -38,6 +38,7 @@ select, option{
   flex-direction: row;
 }
 .button {
+  color: white;
   background-color: purple;
   border-radius: 5px;
 }
@@ -72,7 +73,7 @@ select, option{
 .box {
   margin: 10px;
 }
-.inner_element {
+.innerElement {
   margin: 0 10 0 10;
 }
 .fixed_header{
@@ -82,18 +83,9 @@ select, option{
 }
 
 .fixed_header tbody{
-display:block;
-width: 100%;
-overflow: auto;
-max-height: 400px;
-}
-
-.fixed_header thead tr {
- display: block;
-}
-.fixed_header thead tr:nth-child(even) {
- background-color: lightgrey;
- opacity: 10%;
+  width: 100%;
+  overflow: auto;
+  max-height: 400px;
 }
 .fixed_header thead {
 background: #c92424;
@@ -102,4 +94,23 @@ background: #c92424;
 .fixed_header th, .fixed_header td {
 padding: 5px;
 text-align: left;
+}
+#assessment_table{
+  overflow-x: auto;
+}
+#assessment_table thead {
+  background: #c92424;
+}
+#assessment_table table {
+  border-collapse: collapse;
+}
+#assessment_table th, #assessment_table td {
+  padding: 5px;
+  text-align: left;
+}
+.hidden_form{
+  display: none;
+}
+input:not(.button){
+  color: black;
 }

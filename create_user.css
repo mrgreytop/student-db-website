@@ -17,9 +17,6 @@ body {
   border-color: black;
   cursor: pointer;
 }
-table.spaced_form tr > td{
-  padding: 10 0 10 5;
-  text-align: right;
-  vertical-align: top;
-  white-space: nowrap;
+.error{
+  color: red;
 }
